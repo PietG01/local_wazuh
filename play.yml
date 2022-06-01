@@ -2,7 +2,7 @@
 - name: Wazuh installation 
   hosts: local
   gather_facts: no
-  remote_user: piet	
+  remote_user: piet
 
   roles:
    - wazuh_indexer

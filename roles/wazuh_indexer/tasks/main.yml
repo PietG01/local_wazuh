@@ -1,3 +1,4 @@
 ---
 # tasks file for wazuh_indexer
 - import_tasks: certificates.yml
+- import_tasks: dependencies.yml
