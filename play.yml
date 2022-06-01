@@ -6,8 +6,9 @@
   remote_user: piet
   
   roles:
-    - wazuh_server
     - wazuh_indexer
+    - wazuh_server
+    
     
 
 
