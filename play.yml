@@ -7,6 +7,11 @@
   - name: Download Certificates & Config
     get_url:
       url: "{{ item }}"
-      dest: /home/piet/local_wazuh
+      dest: /home/piet/wazuh_install/indexer
 	
-	
+- name: Edit ./config.yml
+  blockinfile:
+    block: "{{ lookup('file', '/home/piet/local_wazuh/config.txt') }}"
+      path: /home/piet/wazuh_install/indexer/config.yml
+      backup: yes
+      validate: /usr/sbin/sshd -T -f %s
