@@ -3,41 +3,12 @@
   hosts: local
   gather_facts: no
   remote_user: piet	
+
+  roles:
+   - wazuh_indexer
   
-  tasks:
-  - name: Create directories
-    ansible.builtin.file:
-      path: /home/piet/{{ item }}
-      state: directory
-      mode: '0755'
-    with_items:
-      - wazuh_install
-      - wazuh_install/indexer  
 
-  - name: Download Certificates & Config
-    get_url:
-      url: https://packages.wazuh.com/4.3/wazuh-certs-tool.sh
-      dest: /home/piet/wazuh_install/indexer
 
-  - name: Store script on controller
-    ansible.builtin.fetch:
-      src: /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh
-      dest: /home/piet/local_wazuh/wazuh-certs-tool.sh
-
-  - name: Copy config
-    ansible.builtin.copy:
-      src: /home/piet/local_wazuh/config.yml
-      dest: /home/piet/wazuh_install/indexer
-      mode: '0755'
-
-  - name: Execute script
-    ansible.builtin.shell: bash /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh -A
-
-  - name: Comprimeren van certificates
-    archive:
-      path: /home/piet/wazuh_install/indexer/wazuh-certificates/ .
-      dest: /home/piet/wazuh_install/wazuh-certs.tar
-      format: tar 
 
 
   
