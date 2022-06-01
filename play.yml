@@ -17,12 +17,12 @@
   - name: Download Certificates & Config
     get_url:
       url: https://packages.wazuh.com/4.3/wazuh-certs-tool.sh
-      dest: /home/piet/local_wazuh
+      dest: /home/piet/wazuh_install/indexer
 
-  - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
+  - name: Store script on controller
     ansible.builtin.fetch:
       src: /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh
-      dest: /tmp/fetched
+      dest: /home/piet/local_wazuh/wazuh-certs-tool.sh
 
   - name: Copy config
     ansible.builtin.copy:
@@ -30,5 +30,5 @@
       dest: /home/piet/wazuh_install/indexer
       mode: '0755'
 
-  - name: Run a script with arguments (free form)
-    ansible.builtin.script: /home/piet/local_wazuh/indexer/wazuh-certs-tool.sh -A
+  - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+    ansible.builtin.shell: bash /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh -A
