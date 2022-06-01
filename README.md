@@ -118,3 +118,26 @@ nodes:
 - [Official WAZUH DOCU](https://documentation.wazuh.com/current/index.html)
 - [Linux Ubuntu](https://ubuntu.com/)
 - [Official Ubuntu Documenation](https://help.ubuntu.com/)
+
+## Uninstall
+
+Wazuh-indexer
+```javascript
+apt remove --purge wazuh-indexer -y
+```
+Wazuh-server
+```javascript
+apt remove --purge wazuh-manager -y
+```
+Filebeat
+```javascript
+apt remove --purge filebeat -y
+```
+Wazuh-dashboard
+```javascript
+apt remove --purge wazuh-dashboard -y
+```
+Wazuh-agent
+```javascript
+apt-get remove --purge wazuh-agent -y
+```
