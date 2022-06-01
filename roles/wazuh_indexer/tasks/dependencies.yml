@@ -1,0 +1,30 @@
+
+- name: Add GPG key 
+  become: yes
+  apt_key: 
+    url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+    state: present
+
+- name: Add repo
+  become: yes
+  ansible.builtin.shell: echo "deb https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: install dependencies & indexer
+  become: yes
+  apt: 
+    name: "{{ packages}}"
+  vars:
+    packages:
+    - debconf
+    - adduser
+    - procps
+    - gnupg
+    - apt-transport-https
+    - wazuh-indexer
+
+  
