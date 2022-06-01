@@ -1,6 +1,5 @@
 
 - name: Create directories
-  become: yes 
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -8,8 +7,6 @@
   with_items:
       - /home/piet/wazuh_install
       - /home/piet/wazuh_install/indexer
-      - /etc/wazuh-indexer/certs 
-      - /etc/filebeat/certs 
 
 - name: Download Certificates & Config
   get_url:

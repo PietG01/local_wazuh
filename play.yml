@@ -3,10 +3,10 @@
   hosts: local
   gather_facts: no
   remote_user: piet
-
-  roles:
-   - wazuh_indexer
   
+  roles:
+    - wazuh_indexer
+   
 
 
   

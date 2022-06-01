@@ -1,4 +1,14 @@
 ---
+- name: Create directories
+  become: yes
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+      - /etc/wazuh-indexer/certs 
+      - /etc/filebeat/certs
+
 - name: Deploy Certificates
   become: yes
   ansible.builtin.shell: |
@@ -8,3 +18,4 @@
     chmod 500 /etc/wazuh-indexer/certs
     chmod 400 /etc/wazuh-indexer/certs/*
     chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/certs
+  notify: Restart Wazuh-indexer

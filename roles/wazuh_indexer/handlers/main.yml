@@ -1,2 +1,9 @@
 ---
 # handlers file for wazuh_indexer
+---
+- name: Restart Wazuh-indexer
+  ansible.builtin.systemd:
+    name: wazuh-indexer
+    daemon_reload: yes
+    enable: yes
+    state: started
