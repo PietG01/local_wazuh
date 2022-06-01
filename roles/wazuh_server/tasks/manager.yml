@@ -1,7 +1,7 @@
 --- 
 - name: Installing Wazuh-manager & Filebeat
   become: yes
-   apt: 
+  apt: 
     name: "{{ packages}}"
   vars:
     packages:

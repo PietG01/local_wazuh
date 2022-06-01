@@ -1,2 +1,8 @@
 ---
 # vars file for wazuh_server
+fb_config : | 
+  output.elasticsearch:
+  hosts: ["203.0.113.99:9200"]
+  protocol: https
+  username: ${username}
+  password: ${password}

@@ -1,0 +1,14 @@
+- name: Downloading Filebeat config file
+  become: yes
+  get_url:
+    url: https://packages.wazuh.com/4.3/tpl/wazuh/filebeat/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: Downloading Filebeat config file
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/filebeat/filebeat.yml
+    line: "{{ fb_config }}"
+    create: yes
+
+

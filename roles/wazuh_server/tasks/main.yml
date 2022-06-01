@@ -1,2 +1,4 @@
 ---
 # tasks file for wazuh_server
+- import_tasks: repo.yml
+- import_tasks: manager.yml
