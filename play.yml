@@ -16,11 +16,19 @@
 
   - name: Download Certificates & Config
     get_url:
-      url: "https://packages.wazuh.com/4.3/{{ item }}"
+      url: https://packages.wazuh.com/4.3/wazuh-certs-tool.sh
+      dest: /home/piet/local_wazuh
+
+  - name: Store file into /tmp/fetched/host.example.com/tmp/somefile
+    ansible.builtin.fetch:
+      src: /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh
+      dest: /tmp/fetched
+
+  - name: Copy config
+    ansible.builtin.copy:
+      src: /home/piet/local_wazuh/config.yml
       dest: /home/piet/wazuh_install/indexer
-    with_items:
-      - wazuh-certs-tool.sh
-      - config.yml
-  
+      mode: '0755'
 
-
+  - name: Run a script with arguments (free form)
+    ansible.builtin.script: /home/piet/local_wazuh/indexer/wazuh-certs-tool.sh -A
