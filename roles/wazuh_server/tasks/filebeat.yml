@@ -11,4 +11,38 @@
     line: "{{ fb_config }}"
     create: yes
 
+- name: Creating Filebeat keystore 
+  become: yes
+  ansible.builtin.shell: |
+    filebeat keystore create
+    echo admin | filebeat keystore add username --stdin --force
+    echo admin | filebeat keystore add password --stdin --force
 
+- name: Downloading alerts template for Wazuh indexer
+  become: yes 
+  get_url:
+    url: https://raw.githubusercontent.com/wazuh/wazuh/4.3/extensions/elasticsearch/7.x/wazuh-template.json
+    dest: /etc/filebeat/wazuh-template.json
+
+
+- name: Chmod wazuh-template
+  ansible.builtin.file:
+    path: /etc/filebeat/wazuh-template.json
+    state: touch
+    mode: u=rw,g=r,o=r
+
+- name: Adding Wazuh repository 
+  become: yes
+  ansible.builtin.shell: curl -s https://packages.wazuh.com/4.x/filebeat/wazuh-filebeat-0.2.tar.gz | tar -xvz -C /usr/share/filebeat/module
+
+ 
+- name: Deploy Certificates
+  become: yes
+  ansible.builtin.shell: |
+    mkdir /etc/filebeat/certs
+    tar -xf ./wazuh-certificates.tar -C /etc/filebeat/certs/ ./$NODE_NAME.pem ./$NODE_NAME-key.pem ./root-ca.pem
+    mv -n /etc/filebeat/certs/$NODE_NAME.pem /etc/filebeat/certs/filebeat.pem
+    mv -n /etc/filebeat/certs/$NODE_NAME-key.pem /etc/filebeat/certs/filebeat-key.pem
+    chmod 500 /etc/filebeat/certs
+    chmod 400 /etc/filebeat/certs/*
+    chown -R root:root /etc/filebeat/certs
