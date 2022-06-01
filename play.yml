@@ -30,5 +30,14 @@
       dest: /home/piet/wazuh_install/indexer
       mode: '0755'
 
-  - name: Execute the command in remote shell; stdout goes to the specified file on the remote
+  - name: Execute script
     ansible.builtin.shell: bash /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh -A
+
+  - name: Comprimeren van certificates
+    archive:
+      path: /home/piet/wazuh_install/indexer/wazuh-certificates/ .
+      dest: /home/piet/wazuh_install/wazuh-certs.tar
+      format: tar 
+
+
+  
