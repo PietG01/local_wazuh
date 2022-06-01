@@ -1,0 +1,8 @@
+---
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    name: wazuh-indexer
+    daemon_reload: yes
+    enable: yes
+    state: started
+    
