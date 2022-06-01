@@ -1,0 +1,10 @@
+--- 
+- name: Installing Wazuh-manager & Filebeat
+  become: yes
+   apt: 
+    name: "{{ packages}}"
+  vars:
+    packages:
+    - wazuh-manager
+    - filebeat
+  notify: restart wazuh-manager

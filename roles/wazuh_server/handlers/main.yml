@@ -1,2 +1,8 @@
 ---
 # handlers file for wazuh_server
+- name: restart wazuh-manager
+  become: yes
+  ansible.builtin.systemd:
+    name: wazuh-indexer
+    state: restarted
+    enabled: yes
