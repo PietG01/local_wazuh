@@ -1,0 +1,23 @@
+- name: Check for missing packages
+  become: yes
+  apt: 
+    name: "{{ packages}}"
+  vars:
+    packages:
+    - gnupg
+    - apt-transport-https
+
+- name: Add GPG key 
+  become: yes
+  apt_key: 
+    url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+    state: present
+
+- name: Adding Wazuh repository 
+  become: yes
+  ansible.builtin.shell: echo "deb https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+
+- name: Running apt-get update
+  become: yes
+  apt:
+    update_cache: yes

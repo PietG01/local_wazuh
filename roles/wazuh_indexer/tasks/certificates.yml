@@ -13,11 +13,6 @@
     url: https://packages.wazuh.com/4.3/wazuh-certs-tool.sh
     dest: /home/piet/wazuh_install/indexer
 
-- name: Store script on controller
-  ansible.builtin.fetch:
-    src: /home/piet/wazuh_install/indexer/wazuh-certs-tool.sh
-    dest: /home/piet/local_wazuh/wazuh-certs-tool.sh
-
 - name: Copy config
   ansible.builtin.copy:
     src: /home/piet/local_wazuh/config.yml
