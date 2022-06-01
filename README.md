@@ -47,7 +47,6 @@ All in one
 
 Unattended
 ```javascript
----
 - name: Wazuh unattended installation 
   hosts: local # replace with hostname or group
   gather_facts: no # for performance means only
@@ -57,19 +56,19 @@ Unattended
   tasks: 
   - name: Create directories
     ansible.builtin.file:
-      path: /home/piet/wazuh_auto #directory for downloading, change as needed
+      path: /home/piet/wazuh_unat #directory for downloading, change as needed
       state: directory
-       mode: '0755'
+      mode: '0755'
 
-    - name: Downloading Wazuh
-      become: yes
-      get_url:
-        url: https://packages.wazuh.com/4.3/wazuh-install.sh
-        dest: /home/piet/wazuh_auto #match with above created directory
+  - name: Downloading Wazuh unattended script
+    become: yes
+    get_url:
+      url: https://packages.wazuh.com/4.3/wazuh-install.sh
+      dest: /home/piet/wazuh_unat #match with above created directory
 
-    - name: Script uitvoeren
-      become: yes
-      ansible.builtin.shell: bash /home/piet/wazuh_auto/wazuh-install.sh -a
+  - name: Run Wazuh unattended script
+    become: yes
+    ansible.builtin.shell: bash /home/piet/wazuh_unat/wazuh-install.sh -a
 ```
 
 Agent
@@ -118,3 +117,4 @@ nodes:
 
 - [Official WAZUH DOCU](https://documentation.wazuh.com/current/index.html)
 - [Linux Ubuntu](https://ubuntu.com/)
+- [Official Ubuntu Documenation](https://help.ubuntu.com/)
