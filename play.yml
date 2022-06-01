@@ -1,17 +1,26 @@
 ---
 - name: Wazuh installation 
   hosts: local
+  gather_facts: no
   remote_user: piet	
   
   tasks:
+  - name: Create directories
+    ansible.builtin.file:
+      path: /home/piet/{{ item }}
+      state: directory
+      mode: '0755'
+    with_items:
+      - wazuh_install
+      - wazuh_install/indexer  
+
   - name: Download Certificates & Config
     get_url:
-      url: "{{ item }}"
+      url: "https://packages.wazuh.com/4.3/{{ item }}"
       dest: /home/piet/wazuh_install/indexer
-	
-- name: Edit ./config.yml
-  blockinfile:
-    block: "{{ lookup('file', '/home/piet/local_wazuh/config.txt') }}"
-      path: /home/piet/wazuh_install/indexer/config.yml
-      backup: yes
-      validate: /usr/sbin/sshd -T -f %s
+    with_items:
+      - wazuh-certs-tool.sh
+      - config.yml
+  
+
+
