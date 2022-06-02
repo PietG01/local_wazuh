@@ -26,6 +26,7 @@
 
 
 - name: Chmod wazuh-template
+  become: yes
   ansible.builtin.file:
     path: /etc/filebeat/wazuh-template.json
     state: touch
